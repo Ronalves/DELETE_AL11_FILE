@@ -1,0 +1,11 @@
+"Remove arquivo
+    CLEAR vl_unixcomm.
+    CONCATENATE c_rm      "comando Remove
+                ' '       "espaço
+                vg_fullpath   "Diretorio orginal
+                INTO vl_unixcomm SEPARATED BY space IN CHARACTER MODE .
+    CALL 'SYSTEM' ID 'COMMAND' FIELD vl_unixcomm
+                  ID 'TAB'     FIELD tabl-*sys*.
+    IF sy-subrc <> 0.
+      vg_erro = 'X'.
+    ENDIF.
