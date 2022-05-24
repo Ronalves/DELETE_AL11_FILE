@@ -1,11 +1,18 @@
-"Remove arquivo
-    CLEAR vl_unixcomm.
-    CONCATENATE c_rm      "comando Remove
-                ' '       "espaço
-                vg_fullpath   "Diretorio orginal
-                INTO vl_unixcomm SEPARATED BY space IN CHARACTER MODE .
-    CALL 'SYSTEM' ID 'COMMAND' FIELD vl_unixcomm
-                  ID 'TAB'     FIELD tabl-*sys*.
-    IF sy-subrc <> 0.
-      vg_erro = 'X'.
-    ENDIF.
+Tentar usar antes a função EPS_DELETE_FILE e caso não funcione ai sim codificar
+
+data: vg_fullpath(600) TYPE c VALUE '/producao/interface/preextrato/Brasil/processar/C:\Users\aluga.com\Desktop\Nova pasta\CADASTRAMENTO2.881.3000036.T202109160714310002',
+      vl_unixcomm(600) TYPE c.
+
+DATA: BEGIN OF tabl OCCURS 0,
+        line(2000),
+      END OF tabl.
+
+CONCATENATE 'rm'      "comando Remove
+             ' '       "espaço
+             vg_fullpath   "Diretorio orginal
+             INTO vl_unixcomm SEPARATED BY space IN CHARACTER MODE .
+CALL 'SYSTEM' ID 'COMMAND' FIELD vl_unixcomm
+              ID 'TAB'     FIELD tabl-*sys*.
+IF sy-subrc <> 0.
+
+ENDIF.
